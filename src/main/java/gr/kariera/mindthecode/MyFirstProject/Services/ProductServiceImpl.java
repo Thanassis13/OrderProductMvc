@@ -5,7 +5,9 @@ import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repo;
@@ -55,8 +57,8 @@ public class ProductServiceImpl implements ProductService {
         PageRequest paging = PageRequest
                 .of(page, size)
                 .withSort(sort.equalsIgnoreCase("ASC") ?
-                        Sort.by("lastName").ascending() :
-                        Sort.by("lastName").descending());
+                        Sort.by("description").ascending() :
+                        Sort.by("description").descending());
 
         Page<Product> res;
 
