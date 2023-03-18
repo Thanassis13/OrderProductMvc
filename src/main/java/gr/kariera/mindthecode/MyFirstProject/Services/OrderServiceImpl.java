@@ -7,7 +7,9 @@ import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -19,14 +21,14 @@ public class OrderServiceImpl implements OrderService {
         this.productRepository = productRepository;
 
     }
-
+    @Override
     public Order getOrderById(Integer id) {
 
         return orderRepository.findById(id)
                 .orElseThrow();
 
     }
-
+    @Override
     public Page<Order> getOrders(String address, int page, int size, String sort) {
 
         PageRequest paging = PageRequest
@@ -52,13 +54,17 @@ public class OrderServiceImpl implements OrderService {
         return res;
 
     }
-
+    @Override
     public void deleteOrder(Integer id) {
 
         Order match = orderRepository.findById(id)
                 .orElseThrow();
         orderRepository.delete(match);
 
+    }
+    @Override
+   public Order createOrUpdateOrder(Integer id, Order order) throws Exception{
+return order;
     }
 
 }
