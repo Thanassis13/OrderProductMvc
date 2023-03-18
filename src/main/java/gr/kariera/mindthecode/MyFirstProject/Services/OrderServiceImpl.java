@@ -6,6 +6,7 @@ import gr.kariera.mindthecode.MyFirstProject.Entities.OrderProductPK;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.OrderRepository;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-
+    @Autowired
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
