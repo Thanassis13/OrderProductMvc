@@ -34,6 +34,7 @@ public class ProductController {
             model.addAttribute("products", service.getProducts(description, page, size, sort));
             model.addAttribute("sort", sort);
             model.addAttribute("description", description);
+
             return "products";
 
         }
