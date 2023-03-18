@@ -3,6 +3,8 @@ package gr.kariera.mindthecode.MyFirstProject.Services;
 
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
 
 public interface ProductService {
 

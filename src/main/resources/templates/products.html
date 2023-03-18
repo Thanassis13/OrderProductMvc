@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -18,26 +18,91 @@
     </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Orders MVC Project</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" style="margin-left: var(--bs-navbar-brand-margin-end);" href="#">
+            <img src="https://w7.pngwing.com/pngs/591/1008/png-transparent-super-smash-bros-kirby-wii-fit-nintendo-eshop-brand-bag-orange-nintendo-video-game-thumbnail.png" width="30" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav" style="gap:5px">
 
-            <a class="nav-item nav-link active" th:href="@{/products/index}">Products></a>
-            <a class="nav-item nav-link" th:href="@{/orders/index}">Orders</a>
-            <a class="nav-item nav-link" th:href="@{/products/create}">New Product</a>
-            <a class="nav-item nav-link" th:href="@{/orders/create}">New Order</a>
+                <a class="nav-item nav-link active" th:href="@{/products/index}">Προϊόντα</a>
+                <a class="nav-item nav-link" th:href="@{/orders/index}">Παραγγελίες</a>
+                <form><button type="submit" class=" btn btn-primary" th:href="@{/products/create}">Νέο προϊόν</button></form>
+                <form><button type="submit" class=" btn btn-primary" th:href="@{/orders/create}">Νέα Παραγγελία</button></form>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<main class="container pt-5">
+
+    <div class="row mt-5">
+        <div class="col-3">
+            <form id="new-product" method="get" th:attr="action=@{/products/create}">
+                <button class="btn btn-primary" type="submit" form="new-product" >Νέο Προϊόν</button>
+            </form>
+
+        </div>
+        <div class="col-3">
+            <form class="d-flex" role="search" th:action="@{/products/index}" th:method="get">
+                <input th:value="${description}" name="description"  class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Αναζήτηση</button>
+            </form>
+        </div>
+        <div class="col-3 offset-3">
+            <select th:onchange="'onSortChange(this)'"; class="form-select" aria-label="Default select example">
+                <option th:selected="${sort == 'ASC'}"  value="ASC">Ταξινόμηση αύξουσα (περιγραφή)</option>
+                <option th:selected="${sort == 'DESC'}" value="DESC">Ταξινόμηση φθίνουσα (περιγραφή)</option>
+            </select>
         </div>
     </div>
-</nav>
+
+    <table class="table table-hover">
+
+        <thead>
+
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Περιγραφή</th>
+            <th scope="col">Τιμή</th>
+            <th scope="col">Επιλογές</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="product, iStat: ${products}">
+            <th th:text="${product.id}" scope="row"></th>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <div class="row" style="width:190px;">
+                    <div class="col">
+                        <form th:action="@{/products/edit/{id}(id=${product.id})}" th:method="get" >
+                            <button type="submit" class="btn btn-light">Επεξεργασία</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form th:action="@{/products/delete/{id}(id=${product.id})}" th:method="post" >
+                            <button type="submit" class="btn btn-danger">Διαγραφή</button>
+                        </form>
+                    </div>
+                </div>
 
 
-<main>
+            </td>
+        </tr>
 
+        </tbody>
+
+    </table>
 </main>
-
 </body>
 </html>
