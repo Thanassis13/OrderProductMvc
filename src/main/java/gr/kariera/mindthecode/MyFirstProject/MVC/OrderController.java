@@ -1,13 +1,15 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
+import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")
@@ -35,12 +37,40 @@ public class OrderController {
 
     }
 
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+
+        model.addAttribute("order",  new Order());
+
+        return "create-or-update-order";
+
+    }
+
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("order",  service.getOrderById(id));
 
         return "create-or-update-order";
+
+    }
+
+    @PostMapping("/create-or-update")
+    public String saveCreateForm(@RequestParam Optional<Integer> id, Order order, Model model) {
+
+        try {
+
+            service.createOrUpdateOrder(id.isPresent() ? id.get() : null, order);
+
+        }
+
+        catch (Exception e) {
+
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
+
+        }
+
+        return "redirect:/orders/index";
 
     }
 
