@@ -31,7 +31,7 @@ public class ProductController {
                 Model model
         ) {
 
-            model.addAttribute("persons", service.getProducts(description, page, size, sort));
+            model.addAttribute("products", service.getProducts(description, page, size, sort));
             model.addAttribute("sort", sort);
             model.addAttribute("description", description);
 
@@ -61,7 +61,7 @@ public class ProductController {
 
             service.deleteProduct(id);
 
-            return "redirect:/persons/index";
+            return "redirect:/products/index";
 
         }
 
