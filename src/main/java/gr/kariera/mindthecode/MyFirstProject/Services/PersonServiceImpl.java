@@ -13,33 +13,48 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository repo;
 
     public PersonServiceImpl(PersonRepository repo) {
+
         this.repo = repo;
+
     }
     @Override
     public Person createOrUpdatePerson(Integer id, Person person) throws Exception {
-        if (id != null) {
-            if (!id.equals(person.getId())) {
-                throw new Exception("id in path does not patch id in body");
-            }
-        }
-        return repo.save(person);
-    }
 
-    @Override
-    public void deletePerson(Integer id) {
-        Person match = repo.findById(id)
-                .orElseThrow();
-        repo.delete(match);
+        if (id != null) {
+
+            if (!id.equals(person.getId())) {
+
+                throw new Exception("id in path does not patch id in body");
+
+            }
+
+        }
+
+        return repo.save(person);
+
     }
 
     @Override
     public Person getById(Integer id) {
+
         return repo.findById(id)
                 .orElseThrow();
+
     }
 
     @Override
+    public void deletePerson(Integer id) {
+
+        Person match = repo.findById(id)
+                .orElseThrow();
+        repo.delete(match);
+
+    }
+
+
+    @Override
     public Page<Person> getPersons(String lastName, int page, int size, String sort) {
+
         PageRequest paging = PageRequest
                 .of(page, size)
                 .withSort(sort.equalsIgnoreCase("ASC") ?
@@ -47,14 +62,21 @@ public class PersonServiceImpl implements PersonService {
                         Sort.by("lastName").descending());
 
         Page<Person> res;
+
         if (lastName == null) {
+
             res = repo.findAll(paging);
-        } else {
+
+        }
+
+        else {
+
             res = repo.findByLastNameContainingIgnoreCase(lastName, paging);
+
         }
 
         return res;
-    }
 
+    }
 
 }

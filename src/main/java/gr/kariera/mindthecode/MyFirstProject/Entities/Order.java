@@ -17,48 +17,67 @@ public class Order {
     @Id
     @GeneratedValue
     private Integer id;
+    private Double discountPercentage = 0d;
+    private String address;
 
     public Order() {
+
         this.orderProducts = new ArrayList<>();
+
     }
 
     public Order(Collection<OrderProduct> products) {
+
         this.orderProducts = products;
+
     }
 
     public Order(String address) {
+
         this.address = address;
         this.orderProducts = new ArrayList<>();
+
     }
 
     public Order(Collection<OrderProduct> products, String address) {
+
         this.orderProducts = products;
         this.address = address;
+
     }
 
     public Integer getId() {
+
         return id;
+
     }
 
     public void setId(Integer id) {
+
         this.id = id;
+
     }
 
     public String getAddress() {
+
         return address;
+
     }
 
     public void setAddress(String address) {
+
         this.address = address;
+
     }
 
+    public Double getDiscountPercentage() {
 
-    public Collection<OrderProduct> getOrderProducts() {
-        return orderProducts;
+        return discountPercentage;
+
     }
 
-    public void setOrderProducts(Collection<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setDiscountPercentage(Double discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -66,10 +85,23 @@ public class Order {
     @JsonIgnore
     private Collection<OrderProduct> orderProducts = new ArrayList<>();
 
+    public Collection<OrderProduct> getOrderProducts() {
+
+        return orderProducts;
+
+    }
+
+    public void setOrderProducts(Collection<OrderProduct> orderProducts) {
+
+        this.orderProducts = orderProducts;
+
+    }
+
     @Transient
     private Collection<ProductWithQuantityDto> products;
 
     public Collection<ProductWithQuantityDto>  getProducts() {
+
         return orderProducts
                 .stream()
                 .map(op -> {
@@ -81,12 +113,14 @@ public class Order {
                     return pwq;
                 })
                 .collect(Collectors.toList());
+
     }
 
     @Transient
     private BigDecimal totalCost;
 
     public BigDecimal getTotalCost() {
+
         BigDecimal total = orderProducts
                 .stream()
                 .map(op -> {
@@ -101,17 +135,7 @@ public class Order {
                 .orElseThrow();
 
         return total.multiply(BigDecimal.valueOf(1-discountPercentage));
+
     }
 
-    public Double getDiscountPercentage() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(Double discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    private Double discountPercentage = 0d;
-
-    private String address;
 }

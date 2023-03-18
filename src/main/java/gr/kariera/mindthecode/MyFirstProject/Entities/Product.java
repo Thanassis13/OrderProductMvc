@@ -15,45 +15,61 @@ public class Product {
     @Id
     @GeneratedValue
     private Integer id;
+    private BigDecimal price;
 
-    public Collection<OrderProduct> getOrderProducts() {
-        return orderProducts;
+    private String description;
+
+    public Integer getId() {
+
+        return id;
+
     }
 
-    public void setOrderProducts(Collection<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setId(Integer id) {
+
+        this.id = id;
+
+    }
+
+    public BigDecimal getPrice() {
+
+        return price;
+
+    }
+
+    public void setPrice(BigDecimal price) {
+
+        this.price = price;
+
+    }
+
+    public String getDescription() {
+
+        return description;
+
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
+
     }
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private Collection<OrderProduct> orderProducts = new ArrayList<>();
-    public Integer getId() {
-        return id;
+
+    public Collection<OrderProduct> getOrderProducts() {
+
+        return orderProducts;
+
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOrderProducts(Collection<OrderProduct> orderProducts) {
+
+        this.orderProducts = orderProducts;
+
     }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    private BigDecimal price;
-
-    private String description;
 
 }
