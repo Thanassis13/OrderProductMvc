@@ -1,8 +1,8 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
-import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
+import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,13 @@ import java.util.Optional;
 public class OrderController {
 
     private final OrderService service;
+    private final ProductService productService;
 
-    public OrderController(OrderService service) {
+    public OrderController(OrderService service, ProductService productService) {
 
         this.service = service;
 
+        this.productService = productService;
     }
 
     @GetMapping("/index")
@@ -38,9 +40,15 @@ public class OrderController {
     }
 
     @GetMapping("/create")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(@RequestParam(required = false) String description,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "3") int size,
+                                 @RequestParam(defaultValue = "ASC", required = false) String sort,Model model) {
 
         model.addAttribute("order",  new Order());
+        model.addAttribute("products", productService.getProducts(description, page, size, sort));
+        model.addAttribute("sort", sort);
+        model.addAttribute("description", description);
 
         return "create-or-update-order";
 
