@@ -10,6 +10,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity(name = "orders")
@@ -19,8 +20,7 @@ public class Order {
     private Integer id;
     private Double discountPercentage = 0d;
     private String address;
-
-
+    private List<ProductQuantity> productQuantities;
 
     public Order() {
 
@@ -28,6 +28,11 @@ public class Order {
 
     }
 
+    public Order(List<ProductQuantity> productQuantities) {
+
+        this.productQuantities = new ArrayList<>();
+
+    }
     public Order(Collection<OrderProduct> products) {
 
         this.orderProducts = products;
@@ -79,7 +84,62 @@ public class Order {
     }
 
     public void setDiscountPercentage(Double discountPercentage) {
+
         this.discountPercentage = discountPercentage;
+
+    }
+
+    public List<ProductQuantity> getProductQuantities() {
+
+        return productQuantities;
+
+    }
+
+    public void setProductQuantities(List<ProductQuantity> productQuantities) {
+
+        this.productQuantities = productQuantities;
+
+    }
+
+    public void addProductQuantity(ProductQuantity productQuantity) {
+
+        this.productQuantities.add(productQuantity);
+
+    }
+
+    public static class ProductQuantity {
+        private Integer productId;
+        private Integer quantity;
+
+        public ProductQuantity(Integer productId, Integer quantity) {
+
+            this.productId = productId;
+            this.quantity = quantity;
+
+        }
+
+        public Integer getProductId() {
+            return productId;
+        }
+
+        public void setProductId(Integer productId) {
+
+            this.productId = productId;
+
+        }
+
+        public Integer getQuantity() {
+
+            return quantity;
+
+        }
+
+        public void setQuantity(Integer quantity) {
+
+            this.quantity = quantity;
+
+        }
+
     }
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

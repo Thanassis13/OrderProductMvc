@@ -49,7 +49,7 @@ public class ProductController {
 
         }
         @GetMapping("/edit/{id}")
-        public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
 
             model.addAttribute("product",  service.getById(id));
 

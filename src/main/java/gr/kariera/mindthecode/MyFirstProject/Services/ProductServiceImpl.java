@@ -1,5 +1,6 @@
 package gr.kariera.mindthecode.MyFirstProject.Services;
 
+import gr.kariera.mindthecode.MyFirstProject.DTOs.ProductWithQuantityExtendedDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -7,14 +8,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository repo;
+    private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository repo) {
+    public ProductServiceImpl(ProductRepository productRepository) {
 
-        this.repo = repo;
+        this.productRepository = productRepository;
 
     }
     @Override
@@ -30,24 +34,38 @@ public class ProductServiceImpl implements ProductService {
 
         }
 
-        return repo.save(product);
+        return productRepository.save(product);
 
     }
 
     @Override
-    public Product getById(Integer id) {
+    public ProductWithQuantityExtendedDto getById(Integer id) throws Exception {
 
-        return repo.findById(id)
-                .orElseThrow();
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            ProductWithQuantityExtendedDto dto = new ProductWithQuantityExtendedDto();
+            dto.setProductId(product.getId());
+            dto.setDescription(product.getDescription());
+            dto.setPrice(product.getPrice());
+            return dto;
+
+        }
+
+        else {
+
+            throw new Exception("product not found");
+
+        }
 
     }
 
     @Override
     public void deleteProduct(Integer id) {
 
-        Product match = repo.findById(id)
+        Product match = productRepository.findById(id)
                 .orElseThrow();
-        repo.delete(match);
+        productRepository.delete(match);
 
     }
 
@@ -64,13 +82,13 @@ public class ProductServiceImpl implements ProductService {
 
         if (description == null) {
 
-            res = repo.findAll(paging);
+            res = productRepository.findAll(paging);
 
         }
 
         else {
 
-            res = repo.findByDescriptionContainingIgnoreCase(description, paging);
+            res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 
         }
 
