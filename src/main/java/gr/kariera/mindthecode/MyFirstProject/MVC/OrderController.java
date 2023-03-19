@@ -72,11 +72,11 @@ public class OrderController {
     }
 
     @PostMapping("/create-or-update")
-    public String saveCreateForm(@RequestParam Optional<Integer> id, Order order, Model model) {
+    public String saveCreateForm(@RequestParam Optional<Integer> id, NewOrderDto newOrderDto, Model model) {
 
         try {
 
-            orderService.createOrUpdateOrder(id.isPresent() ? id.get() : null, NewOrderDto());
+            orderService.createOrUpdateOrder(id.isPresent() ? id.get() : null, newOrderDto);
 
         }
 
