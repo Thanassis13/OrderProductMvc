@@ -100,6 +100,16 @@
         <div class="col-12 col-md-3" style="align-self:end">
             <button class=" btn btn-primary btn-lg h-36" type="submit">Καταχώρηση παραγγελίας</button>
         </div>
+
+        <div class="col-12 col-md-3">
+            <label for="address" class="form-label">Διευθυνση αποστολης</label>
+            <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="Διευθυνση"
+                   required="required">
+            <div class="invalid-feedback">
+                Εισάγετε διευθυνση αποστολης
+            </div>
+        </div>
+
     </form>
 </main>
 </body>
