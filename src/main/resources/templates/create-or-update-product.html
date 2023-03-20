@@ -30,8 +30,8 @@
 
                 <a class="nav-item nav-link active" th:href="@{/products/index}">Προϊόντα</a>
                 <a class="nav-item nav-link" th:href="@{/orders/index}">Παραγγελίες</a>
-                <form><button type="submit" class=" btn btn-primary" th:href="@{/products/create}">Νέο προϊόν</button></form>
-                <form><button type="submit" class=" btn btn-primary" th:href="@{/orders/create}">Νέα Παραγγελία</button></form>
+                <form  method="get" th:attr="action=@{/products/create}"><button type="submit" class=" btn btn-primary" th:href="@{/products/create}">Νέο προϊόν</button></form>
+                <form  method="get" th:attr="action=@{/orders/create}"><button type="submit" class=" btn btn-primary" th:href="@{/orders/create}">Νέα Παραγγελία</button></form>
 
             </div>
         </div>
