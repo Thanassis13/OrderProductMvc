@@ -2,6 +2,7 @@ package gr.kariera.mindthecode.MyFirstProject.Services;
 
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository repo;
+    @Autowired
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository repo) {
 
-        this.repo = repo;
+        this.productRepository = repo;
 
     }
     @Override
@@ -30,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
 
         }
 
-        return repo.save(product);
+        return productRepository.save(product);
 
     }
 
     @Override
     public Product getById(Integer id) {
 
-        return repo.findById(id)
+        return productRepository.findById(id)
                 .orElseThrow();
 
     }
@@ -45,9 +47,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Integer id) {
 
-        Product match = repo.findById(id)
+        Product match = productRepository.findById(id)
                 .orElseThrow();
-        repo.delete(match);
+        productRepository.delete(match);
 
     }
 
@@ -64,13 +66,13 @@ public class ProductServiceImpl implements ProductService {
 
         if (description == null) {
 
-            res = repo.findAll(paging);
+            res = productRepository.findAll(paging);
 
         }
 
         else {
 
-            res = repo.findByDescriptionContainingIgnoreCase(description, paging);
+            res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 
         }
 

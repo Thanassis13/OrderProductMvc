@@ -1,6 +1,9 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
+import gr.kariera.mindthecode.MyFirstProject.DTOs.CartDto;
+import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
+import gr.kariera.mindthecode.MyFirstProject.Services.CartService;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.http.HttpStatusCode;
@@ -15,14 +18,16 @@ import java.util.Optional;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderService service;
+    private final OrderService orderService;
     private final ProductService productService;
+
 
     public OrderController(OrderService service, ProductService productService) {
 
-        this.service = service;
+        this.orderService = service;
 
         this.productService = productService;
+
     }
 
     @GetMapping("/index")
@@ -57,18 +62,18 @@ public class OrderController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("order",  service.getOrderById(id));
+        model.addAttribute("order",  orderService.getOrderById(id));
 
         return "create-or-update-order";
 
     }
 
     @PostMapping("/create-or-update")
-    public String saveCreateForm(@RequestParam Optional<Integer> id, Order order, Model model) {
+    public String saveCreateForm(@RequestParam Optional<Integer> id, NewOrderDto order, Model model) {
 
         try {
 
-            service.createOrUpdateOrder(id.isPresent() ? id.get() : null, order);
+            orderService.createOrUpdateOrder(id.isPresent() ? id.get() : null, order);
 
         }
 
@@ -85,10 +90,10 @@ public class OrderController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model) {
 
-        service.deleteOrder(id);
+        orderService.deleteOrder(id);
 
         return "redirect:/orders/index";
 
     }
 
-}
+    }

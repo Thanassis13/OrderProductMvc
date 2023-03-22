@@ -1,5 +1,6 @@
 package gr.kariera.mindthecode.MyFirstProject.Services;
 
+import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
 import gr.kariera.mindthecode.MyFirstProject.Entities.OrderProduct;
 import gr.kariera.mindthecode.MyFirstProject.Entities.OrderProductPK;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
     @Autowired
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
@@ -58,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    public Order createOrUpdateOrder(Integer id, Order newOrder) throws Exception {
+    public Order createOrUpdateOrder(Integer id, NewOrderDto newOrder) throws Exception {
 
         if (id != null) {
 
