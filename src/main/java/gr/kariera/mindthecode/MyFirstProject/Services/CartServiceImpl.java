@@ -1,6 +1,7 @@
 package gr.kariera.mindthecode.MyFirstProject.Services;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.CartDto;
+import gr.kariera.mindthecode.MyFirstProject.Entities.Cart;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto getCart(Integer id) {
+    public Cart getCart(Integer id) {
 
-        return cartRepository.findById(id)
-                .orElseThrow();
+        return cartRepository.findById(id).orElseThrow();
 
     }
 
     @Override
-    public CartDto createOrUpdateCart(Integer id, CartDto cartDto) throws Exception {
+    public Cart createOrUpdateCart(Integer id, CartDto cartDto) throws Exception {
 
         if (id != null) {
 
@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService {
 
         }
 
-        return cartRepository.save(cartDto);
+        return cartRepository.save(getCart(id));
 
     }
 

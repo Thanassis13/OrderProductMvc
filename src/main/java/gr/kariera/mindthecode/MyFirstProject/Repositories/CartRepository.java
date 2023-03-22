@@ -1,12 +1,12 @@
 package gr.kariera.mindthecode.MyFirstProject.Repositories;
 
-import gr.kariera.mindthecode.MyFirstProject.DTOs.CartDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import gr.kariera.mindthecode.MyFirstProject.Entities.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends JpaRepository<CartDto, Integer> {
+import java.util.Optional;
 
-    Page<CartDto> findById(Integer id, Pageable pageable);
+public interface CartRepository extends JpaRepository<Cart, Integer> {
+
+    Optional<Cart> findById(Integer id);
 
 }

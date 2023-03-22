@@ -20,16 +20,13 @@ public class OrderController {
 
     private final OrderService orderService;
     private final ProductService productService;
-    private final CartService cartService;
 
 
-    public OrderController(OrderService service, ProductService productService, CartService cartService) {
+    public OrderController(OrderService service, ProductService productService) {
 
         this.orderService = service;
 
         this.productService = productService;
-
-        this.cartService = cartService;
 
     }
 
@@ -99,41 +96,4 @@ public class OrderController {
 
     }
 
-    @GetMapping("/cart")
-    public String showCart(Integer id, Model model) {
-
-        model.addAttribute("cart", cartService.getCart(id));
-
-        return "create-or-update-order";
-
     }
-
-    @GetMapping("/createCart")
-    public String createCartForm(Model model) {
-
-        model.addAttribute("cart",  new CartDto());
-
-        return "create-or-update-cart";
-
-    }
-
-    @PostMapping("/create-or-update")
-    public String saveCreateForm(@RequestParam Optional<Integer> id, @ModelAttribute CartDto cartDto, Model model) {
-
-        try {
-
-            cartService.createOrUpdateCart(id.isPresent() ? id.get() : null, cartDto);
-
-        }
-
-        catch (Exception e) {
-
-            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
-
-        }
-
-        return "redirect:/products/index";
-
-    }
-
-}
