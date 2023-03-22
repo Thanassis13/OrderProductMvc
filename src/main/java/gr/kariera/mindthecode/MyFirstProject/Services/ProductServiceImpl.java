@@ -2,6 +2,7 @@ package gr.kariera.mindthecode.MyFirstProject.Services;
 
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository repo) {
