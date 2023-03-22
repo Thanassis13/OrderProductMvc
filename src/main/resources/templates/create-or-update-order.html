@@ -75,6 +75,7 @@
             </select>
         </div>
     </div>-->
+    <form method="post" th:attr="action=@{/orders/create-or-update(id=${order.id})}" th:object="${order}"> //this will change
         <div class="table-responsive"><table class="table table-hover">
             <thead>
             <tr>
@@ -86,6 +87,7 @@
 
             <tbody>
             <tr th:each="product, iStat: ${products}">
+                <!--          <td> <input type="checkbox" onchange="productChecked(this)"/></td>-->
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
                 <td><input type="number" name="quantity" min="0" value="0"/></td>
@@ -111,6 +113,7 @@
 
         </div>
 
+    </form>
 </main>
 </body>
 </html>
