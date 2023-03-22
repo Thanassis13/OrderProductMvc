@@ -75,28 +75,26 @@
             </select>
         </div>
     </div>-->
-    <form method="post" th:attr="action=@{/orders/create-or-update(id=${order.id})}" th:object="${order}">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Επιλογή</th>
-            <th scope="col">#</th>
-            <th scope="col">Περιγραφή</th>
-            <th scope="col">Τιμή</th>
-            <th scope="col">Ποσότητα</th>
-        </tr>
-        </thead>
+        <div class="table-responsive"><table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Περιγραφή</th>
+                <th scope="col">Τιμή</th>
+                <th scope="col">Ποσότητα</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr th:each="product, iStat: ${products}">
-          <td> <input type="checkbox" onchange="productChecked(this)"/></td>
-            <th th:text="${product.id}" scope="row"></th>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.price}"></td>
-            <td><input type="number" name="quantity" min="0" value="0"/></td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr th:each="product, iStat: ${products}">
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td><input type="number" name="quantity" min="0" value="0"/></td>
+                <td><button class=" btn btn-primary h-36" type="submit">Προσθήκη στο καλάθι</button></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
         <div class="row justify-content-between">
             <div class="col-md-6">
                 <label for="address" class="form-label">Διευθυνση αποστολης</label>
@@ -113,7 +111,6 @@
 
         </div>
 
-    </form>
 </main>
 </body>
 </html>
