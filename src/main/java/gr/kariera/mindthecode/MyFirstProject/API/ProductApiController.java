@@ -13,11 +13,11 @@ import org.springframework.web.client.HttpClientErrorException;
 @RequestMapping(path = "/api")
 public class ProductApiController {
 
-    private final ProductRepository repo;
+    private final ProductRepository productRepository;
 
-    public ProductApiController(ProductRepository repo) {
+    public ProductApiController(ProductRepository productRepository) {
 
-        this.repo = repo;
+        this.productRepository = productRepository;
 
     }
 
@@ -29,21 +29,21 @@ public class ProductApiController {
 
         }
 
-        return repo.save(product);
+        return productRepository.save(product);
 
     }
 
     @PostMapping("/products")
     public Product newPerson(@RequestBody Product product) {
 
-        return repo.save(product);
+        return productRepository.save(product);
 
     }
 
     @GetMapping("/products/{id}")
     public Product one(@PathVariable Integer id) {
 
-        return repo.findById(id)
+        return productRepository.findById(id)
                 .orElseThrow();
 
     }
@@ -68,13 +68,13 @@ public class ProductApiController {
 
         if (description == null) {
 
-            res = repo.findAll(paging);
+            res = productRepository.findAll(paging);
 
         }
 
         else {
 
-            res = repo.findByDescriptionContainingIgnoreCase(description, paging);
+            res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 
         }
 
@@ -85,9 +85,9 @@ public class ProductApiController {
     @DeleteMapping("/products/{id}")
     public void delete(@PathVariable Integer id) {
 
-        Product match = repo.findById(id)
+        Product match = productRepository.findById(id)
                 .orElseThrow();
-        repo.delete(match);
+        productRepository.delete(match);
 
     }
 
