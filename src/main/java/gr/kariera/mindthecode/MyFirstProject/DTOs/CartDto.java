@@ -6,18 +6,19 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.util.Collection;
 
+
 public class CartDto implements Serializable {
 
     private Collection<ProductWithQuantityDto> cartItems;
-    @Id
-    @GeneratedValue
-    private Integer cartId;
-
-    public Integer getCartId() {
-        return cartId;
-    }
-
+    private Integer CartDtoId;
+    
     public CartDto() {}
+
+    public Integer getCartDtoId() {
+
+        return CartDtoId;
+
+    }
 
     public CartDto(Collection<ProductWithQuantityDto> products) {
 

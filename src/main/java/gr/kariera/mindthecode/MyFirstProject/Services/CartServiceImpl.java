@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
 
         if (id != null) {
 
-            if (!id.equals(cartDto.getCartId())) {
+            if (!id.equals(cartDto.getCartDtoId())) {
 
                 throw new Exception("id in path does not patch id in body");
 
