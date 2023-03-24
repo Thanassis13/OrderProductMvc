@@ -110,6 +110,26 @@
             </div>
         </div>
 
+        <table class="table table-hover">
+
+            <tbody>
+
+        <tr th:each="productWithQuantityDto, iStat: ${productWithQuantityDtos}">
+            <td th:text="${productWithQuantityDto.product.id}" scope = "row"></td>
+            <td th:text="${productWithQuantityDto.product.description}"></td>
+            <td>Rs.<span th:text="${productWithQuantityDto.product.price}"></span></td>
+            <td>
+                <div class="col">
+                <form action="#" th:action="@{/orders/index(id=${cart.id})}}" method="get">
+                    <input type="hidden" th:value="${productWithQuantityDto.product.id}" name="id"/>
+                    <input type="number" min="1" th:value="${productwithQuantityDto.quantity}" name="qty"/>
+                    <button type="submit" class="btn btn-light">addToCart</button>
+                </form>
+                </div>
+            </td>
+        </tr>
+            </tbody>
+        </table>
     </form>
 </main>
 </body>

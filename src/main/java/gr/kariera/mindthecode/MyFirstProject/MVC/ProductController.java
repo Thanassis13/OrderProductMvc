@@ -22,7 +22,7 @@ public class ProductController {
 
         }
         @GetMapping("/index")
-        public String greeting(
+        public String all(
 
                 @RequestParam(required = false) String description,
                 @RequestParam(defaultValue = "0") int page,

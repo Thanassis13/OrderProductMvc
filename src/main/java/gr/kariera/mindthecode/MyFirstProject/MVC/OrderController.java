@@ -1,9 +1,7 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
-import gr.kariera.mindthecode.MyFirstProject.DTOs.CartDto;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
-import gr.kariera.mindthecode.MyFirstProject.Services.CartService;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.http.HttpStatusCode;
@@ -22,9 +20,9 @@ public class OrderController {
     private final ProductService productService;
 
 
-    public OrderController(OrderService service, ProductService productService) {
+    public OrderController(OrderService orderService, ProductService productService) {
 
-        this.orderService = service;
+        this.orderService = orderService;
 
         this.productService = productService;
 
@@ -39,6 +37,10 @@ public class OrderController {
             @RequestParam(defaultValue = "ASC", required = false) String sort, Model model
 
     ) {
+
+        model.addAttribute("products", orderService.getOrders(address, page, size, sort));
+        model.addAttribute("sort", sort);
+        model.addAttribute("address", address);
 
         return "orders";
 
