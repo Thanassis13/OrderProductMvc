@@ -64,7 +64,8 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">Order ID</th>
+                <th scope="col">Order Id</th>
+                <th scope="col">Products</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Address</th>
             </tr>
@@ -73,6 +74,7 @@
             <tbody>
             <tr th:each="order, iStat: ${orders}">
                 <td th:text="${order.id}"></td>
+                <td th:text="${order.getProducts()}"></td>
                 <td th:text="${order.getTotalCost()}"></td>
                 <td th:text="${order.getAddress()}"></td>
                 <td>
@@ -80,7 +82,6 @@
             </tbody>
         </table>
     </div>
-
 </main>
 </body>
 </html>

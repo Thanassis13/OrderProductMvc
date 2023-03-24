@@ -53,7 +53,7 @@ public class OrderController {
                                  @RequestParam(defaultValue = "3") int size,
                                  @RequestParam(defaultValue = "ASC", required = false) String sort,Model model) {
 
-        model.addAttribute("products", orderService.getOrders(address, page, size, sort));
+        model.addAttribute("orders", orderService.getOrders(address, page, size, sort));
         model.addAttribute("sort", sort);
         model.addAttribute("address", address);
 
