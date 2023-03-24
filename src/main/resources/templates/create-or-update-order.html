@@ -52,84 +52,51 @@
     </nav>
 </div>
 
-
 <main class="container pt-5">
 
-    <!--<div class="row mt-5">
-       <div class="col-3">
-            <form id="new-product" method="get" th:attr="action=@{/products/create}">
-                <button class="btn btn-primary" type="submit" form="new-product" >Νέο Προϊόν</button>
-            </form>
+    <form method="post" th:attr="action=@{/orders/create-or-update}" th:object="${newOrderDto}">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Product ID</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
 
-        </div>
-        <div class="col-3">
-            <form class="d-flex" role="search" th:action="@{/products/index}" th:method="get">
-                <input th:value="${description}" name="description"  class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Αναζήτηση</button>
-            </form>
-        </div>
-        <div class="col-3 offset-3">
-            <select th:onchange="'onSortChange(this)'"; class="form-select" aria-label="Default select example">
-                <option th:selected="${sort == 'ASC'}"  value="ASC">Ταξινόμηση αύξουσα (περιγραφή)</option>
-                <option th:selected="${sort == 'DESC'}" value="DESC">Ταξινόμηση φθίνουσα (περιγραφή)</option>
-            </select>
-        </div>
-    </div>-->
-    <form method="post" th:attr="action=@{/orders/create-or-update(id=${order.id})}" th:object="${order}">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Επιλογή</th>
-            <th scope="col">#</th>
-            <th scope="col">Περιγραφή</th>
-            <th scope="col">Τιμή</th>
-            <th scope="col">Ποσότητα</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="product, iStat: ${products}">
-          <td> <input type="checkbox" onchange="productChecked(this)"/></td>
-            <th th:text="${product.id}" scope="row"></th>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.price}"></td>
-            <td><input type="number" name="quantity" min="0" value="0"/></td>
-        </tr>
-        </tbody>
-    </table>
-        <div class="col-12 col-md-3" style="align-self:end">
-            <button class=" btn btn-primary btn-lg h-36" type="submit">Καταχώρηση παραγγελίας</button>
+                <tbody>
+                <tr th:each="product, iStat: ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td>
+                        <input type="number" name="quantity" th:name="|products[${iStat.index}].quantity|" th:value="${quantity}" min="0" />
+                        <input type="hidden" th:name="|products[${iStat.index}].productId|" th:value="${product.id}"/>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="col-12 col-md-3">
-            <label for="address" class="form-label">Διευθυνση αποστολης</label>
-            <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="Διευθυνση"
-                   required="required">
-            <div class="invalid-feedback">
-                Εισάγετε διευθυνση αποστολης
+        <div class="discount">
+            <span>10% discount in all our products</span>
+        </div>
+
+        <div style="height: 20px;"></div>
+
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <label for="address" class="form-label">Delivery address</label>
+                <input type="text" class="form-control" id="address" th:field="*{address}" required="required">
             </div>
         </div>
 
-        <table class="table table-hover">
+        <div style="height: 20px;"></div>
 
-            <tbody>
-
-        <tr th:each="productWithQuantityDto, iStat: ${productWithQuantityDtos}">
-            <td th:text="${productWithQuantityDto.product.id}" scope = "row"></td>
-            <td th:text="${productWithQuantityDto.product.description}"></td>
-            <td>Rs.<span th:text="${productWithQuantityDto.product.price}"></span></td>
-            <td>
-                <div class="col">
-                <form action="#" th:action="@{/orders/index(id=${cart.id})}}" method="get">
-                    <input type="hidden" th:value="${productWithQuantityDto.product.id}" name="id"/>
-                    <input type="number" min="1" th:value="${productwithQuantityDto.quantity}" name="qty"/>
-                    <button type="submit" class="btn btn-light">addToCart</button>
-                </form>
-                </div>
-            </td>
-        </tr>
-            </tbody>
-        </table>
+        <div class="col-md-6" style="align-self:end">
+            <button class=" btn btn-primary btn-lg h-36" type="submit">Submit order</button>
+        </div>
     </form>
 </main>
 </body>

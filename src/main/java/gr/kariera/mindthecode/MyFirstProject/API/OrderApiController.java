@@ -80,7 +80,7 @@ public class OrderApiController {
     }
 
     @GetMapping("/orders/{id}")
-    public Order one(@PathVariable Integer id) {
+    public Order orders(@PathVariable Integer id) {
 
         return orderRepository.findById(id)
                 .orElseThrow();

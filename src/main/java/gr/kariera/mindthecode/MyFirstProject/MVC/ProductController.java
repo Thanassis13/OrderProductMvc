@@ -67,7 +67,7 @@ public class ProductController {
         }
 
         @PostMapping("/create-or-update")
-        public String saveCreateForm(@RequestParam Optional<Integer> id, @ModelAttribute Product product, Model model) {
+        public String saveCreateForm(@RequestParam Optional<Integer> id, @ModelAttribute Product product) {
 
             try {
 
