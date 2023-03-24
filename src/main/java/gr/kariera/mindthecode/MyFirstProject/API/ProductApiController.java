@@ -41,7 +41,7 @@ public class ProductApiController {
     }
 
     @GetMapping("/products/{id}")
-    public Product one(@PathVariable Integer id) {
+    public Product products(@PathVariable Integer id) {
 
         return productRepository.findById(id)
                 .orElseThrow();

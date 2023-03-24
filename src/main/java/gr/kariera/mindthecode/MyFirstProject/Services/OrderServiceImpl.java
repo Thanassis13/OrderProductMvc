@@ -60,17 +60,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    public Order createOrUpdateOrder(Integer id, NewOrderDto newOrder) throws Exception {
-
-        if (id != null) {
-
-            if(!id.equals(newOrder.getAddress())) {
-
-                throw new Exception("id in path does not patch id in body");
-
-            }
-
-        }
+    public Order createOrder(NewOrderDto newOrder) {
 
             Order order = new Order();
             order.setAddress(newOrder.getAddress());
@@ -103,6 +93,22 @@ public class OrderServiceImpl implements OrderService {
                     .orElseThrow();
 
         }
+
+        public Order updateOrder(Integer id, Order order) throws Exception {
+
+            if (id != null) {
+
+                if (!id.equals(order.getId())) {
+
+                    throw new Exception("id in path does not patch id in body");
+
+                }
+
+            }
+
+            return orderRepository.save(order);
+
+    }
 
     public void deleteOrder(Integer id) {
 

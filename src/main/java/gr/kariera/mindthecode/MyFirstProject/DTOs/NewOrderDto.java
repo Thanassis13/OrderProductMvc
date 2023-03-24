@@ -7,7 +7,7 @@ import java.util.Collection;
 public class NewOrderDto implements Serializable {
     private String address;
 
-    private Double discountPercentage;
+    private Double discountPercentage = 0.1;
 
     private Collection<ProductWithQuantityDto> products;
 

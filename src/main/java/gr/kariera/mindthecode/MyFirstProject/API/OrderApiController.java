@@ -20,12 +20,12 @@ import org.springframework.web.client.HttpClientErrorException;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
-    private final ProductRepository productRepo;
+    private final ProductRepository productRepository;
 
     public OrderApiController(OrderRepository orderRepository, ProductRepository productRepository) {
 
         this.orderRepository = orderRepository;
-        this.productRepo = productRepository;
+        this.productRepository = productRepository;
 
     }
 
@@ -56,7 +56,7 @@ public class OrderApiController {
                 .stream()
                 .forEach(nop -> {
 
-            Product p = productRepo
+            Product p = productRepository
                     .findById(nop.getProductId())
                     .orElseThrow();
             OrderProduct op = new OrderProduct();
@@ -80,7 +80,7 @@ public class OrderApiController {
     }
 
     @GetMapping("/orders/{id}")
-    public Order one(@PathVariable Integer id) {
+    public Order orders(@PathVariable Integer id) {
 
         return orderRepository.findById(id)
                 .orElseThrow();
