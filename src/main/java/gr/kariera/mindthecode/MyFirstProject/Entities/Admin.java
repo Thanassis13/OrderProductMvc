@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "admins")
+@Table(name = "admins", uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName", "email", "userName", "password"}))
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,5 @@ public class Admin {
     private String username;
 
     private String password;
-
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
-    private String image;
 
 }

@@ -1,9 +1,17 @@
 package gr.kariera.mindthecode.MyFirstProject.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "shopping_cart")
 public class ShoppingCart {
@@ -11,7 +19,7 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shopping_cart_id")
-    private Long id;
+    private Integer id;
     private int totalItems;
     private double totalPrices;
     @OneToOne(fetch = FetchType.EAGER)
