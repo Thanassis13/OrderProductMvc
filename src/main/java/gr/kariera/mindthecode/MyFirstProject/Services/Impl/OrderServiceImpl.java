@@ -1,4 +1,4 @@
-package gr.kariera.mindthecode.MyFirstProject.Services;
+package gr.kariera.mindthecode.MyFirstProject.Services.Impl;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
@@ -7,6 +7,7 @@ import gr.kariera.mindthecode.MyFirstProject.Entities.OrderProductPK;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.OrderRepository;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
+import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    public Order createOrder(NewOrderDto newOrder) {
+    public Order createOrder(Integer id, NewOrderDto newOrder) {
 
             Order order = new Order();
             order.setAddress(newOrder.getAddress());

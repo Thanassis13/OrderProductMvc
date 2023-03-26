@@ -1,7 +1,6 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
-import gr.kariera.mindthecode.MyFirstProject.Entities.Order;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.http.HttpStatusCode;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")
@@ -71,11 +69,11 @@ public class OrderController {
     }
 
     @PostMapping("/create-or-update")
-    public String saveCreateForm(NewOrderDto newOrderDto) {
+    public String saveCreateForm(Integer id, NewOrderDto newOrderDto) {
 
         try {
 
-            orderService.createOrder(newOrderDto);
+            orderService.createOrder(id, newOrderDto);
 
         }
 

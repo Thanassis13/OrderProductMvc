@@ -20,7 +20,13 @@ public class Order {
     private Double discountPercentage = 0d;
     private String address;
 
+    @Transient
+    private BigDecimal totalCost;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private Collection<OrderProduct> orderProducts = new ArrayList<>();
 
     public Order() {
 
@@ -82,11 +88,6 @@ public class Order {
         this.discountPercentage = discountPercentage;
     }
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
-    private Collection<OrderProduct> orderProducts = new ArrayList<>();
-
     public Collection<OrderProduct> getOrderProducts() {
 
         return orderProducts;
@@ -118,9 +119,6 @@ public class Order {
 
     }
 
-    @Transient
-    private BigDecimal totalCost;
-
     public BigDecimal getTotalCost() {
 
         BigDecimal total = orderProducts
@@ -139,5 +137,12 @@ public class Order {
         return total.multiply(BigDecimal.valueOf(1-discountPercentage));
 
     }
+    
+    @Transient
+    public int getNumberOfProducts() {
 
-}
+        return this.orderProducts.size();
+
+    }
+
+    }

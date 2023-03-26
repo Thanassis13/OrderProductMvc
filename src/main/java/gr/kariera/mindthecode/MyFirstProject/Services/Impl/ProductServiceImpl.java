@@ -1,7 +1,8 @@
-package gr.kariera.mindthecode.MyFirstProject.Services;
+package gr.kariera.mindthecode.MyFirstProject.Services.Impl;
 
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
+import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +15,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository repo) {
+    public ProductServiceImpl(ProductRepository productRepository) {
 
-        this.productRepository = repo;
+        this.productRepository = productRepository;
 
     }
     @Override

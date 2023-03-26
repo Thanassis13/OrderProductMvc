@@ -103,6 +103,34 @@
             <button class=" btn btn-primary btn-lg h-36" type="submit">Submit order</button>
         </div>
     </form>
+    <div class="row justify-content-between" th:if="${products.getTotalPages() > 0}">
+        <div class="col-3">
+            <span th:text="${'Now on ' + (products.getNumber()+1) + ' from total ' + products.getTotalPages() + ' pages'}"></span>
+        </div>
+        <div class="col-3 d-flex justify-content-end">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${products.getNumber() == 0}? 'disabled'"><a class="page-link" th:href="@{/products/index(page=${products.getNumber()-1})}">Previous</a></li>
+
+                    <li class="page-item" th:if="${products.getNumber() > 0}">
+                        <a class="page-link" th:href="@{/orders/create(page=${products.getNumber()-1})}" th:text="${products.getNumber()}"></a>
+                    </li>
+
+                    <li class="page-item active">
+                        <a class="page-link" href="#" th:text="${products.getNumber()+1}"></a>
+                    </li>
+
+                    <li class="page-item" th:if="${products.getNumber() < products.getTotalPages() - 1}">
+                        <a class="page-link" th:href="@{/orders/create(page=${products.getNumber()+1})}" th:text="${products.getNumber()+2}"></a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${products.getNumber() == products.getTotalPages() - 1}? 'disabled'">
+                        <a class="page-link" th:href="@{/orders/create(page=${products.getNumber()+1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </main>
 </body>
 </html>

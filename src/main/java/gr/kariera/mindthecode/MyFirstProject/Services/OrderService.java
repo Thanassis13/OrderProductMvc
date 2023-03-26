@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 public interface OrderService {
 
 
-    public abstract Order createOrder(NewOrderDto newOrderDto);
+    public abstract Order createOrder(Integer id, NewOrderDto newOrderDto);
     public abstract Order updateOrder(Integer id, Order order) throws Exception;
     public abstract Order getOrderById(Integer id);
     public abstract void deleteOrder(Integer id);

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Lazy;
 public class OrderProduct {
     @EmbeddedId
     private OrderProductPK id;
+
+    @Column(nullable = false)
     private Integer quantity;
 
     @ManyToOne

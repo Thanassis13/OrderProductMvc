@@ -16,8 +16,23 @@ public class Product {
     @GeneratedValue
     private Integer id;
     private BigDecimal price;
-
     private String description;
+    private String pictureUrl;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private Collection<OrderProduct> orderProducts = new ArrayList<>();
+
+    public Product() {}
+
+    public Product(Integer id, String description, BigDecimal price, String pictureUrl) {
+        this.id = id;
+        this.description = description;
+        this.price = price;
+        this.pictureUrl = pictureUrl;
+
+    }
 
     public Integer getId() {
 
@@ -55,11 +70,6 @@ public class Product {
 
     }
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
-    private Collection<OrderProduct> orderProducts = new ArrayList<>();
-
     public Collection<OrderProduct> getOrderProducts() {
 
         return orderProducts;
@@ -69,6 +79,18 @@ public class Product {
     public void setOrderProducts(Collection<OrderProduct> orderProducts) {
 
         this.orderProducts = orderProducts;
+
+    }
+
+    public String getPictureUrl() {
+
+        return pictureUrl;
+
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+
+        this.pictureUrl = pictureUrl;
 
     }
 

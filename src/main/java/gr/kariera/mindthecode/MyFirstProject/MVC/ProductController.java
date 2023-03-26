@@ -21,6 +21,7 @@ public class ProductController {
             this.service = service;
 
         }
+
         @GetMapping("/index")
         public String all(
 
