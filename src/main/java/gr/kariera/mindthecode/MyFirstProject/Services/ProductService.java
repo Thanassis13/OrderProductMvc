@@ -33,18 +33,18 @@ public interface ProductService {
 
     /*Customer*/
 
-    List<Product> getAllProducts();
+    public abstract List<Product> getAllProducts();
 
     public abstract Product getProductById(Integer id);
 
-    List<Product> listViewProducts();
+    public abstract List<Product> listViewProducts();
 
-    List<Product> getRelatedProducts(Long categoryId);
+    public abstract List<Product> getRelatedProducts(Integer categoryId);
 
-    List<Product> getProductsInCategory(Long categoryId);
+    public abstract List<Product> getProductsInCategory(Integer categoryId);
 
-    List<Product> filterHighPrice();
+    public abstract List<Product> filterHighPrice();
 
-    List<Product> filterLowPrice();
+    public abstract List<Product> filterLowPrice();
 
 }

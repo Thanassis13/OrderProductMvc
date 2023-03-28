@@ -13,7 +13,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -28,6 +27,8 @@ public class ProductController {
         this.categoryService = categoryService;
 
     }
+
+    /*Admin*/
 
     @GetMapping("/index")
     public String all(
@@ -91,5 +92,11 @@ public class ProductController {
         return "redirect:/products/index";
 
     }
+
+    /*Customer*/
+
+
+
+
 
 }

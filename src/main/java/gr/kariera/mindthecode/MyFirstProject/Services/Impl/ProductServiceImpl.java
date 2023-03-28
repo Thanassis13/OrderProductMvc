@@ -2,7 +2,6 @@ package gr.kariera.mindthecode.MyFirstProject.Services.Impl;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.ProductDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
-import gr.kariera.mindthecode.MyFirstProject.Repositories.CategoryRepository;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -180,10 +178,52 @@ public class ProductServiceImpl implements ProductService {
     /*Customer*/
 
     @Override
+    public List<Product> getAllProducts() {
+
+        return productRepository.getAllProducts();
+
+    }
+
+    @Override
     public Product getProductById(Integer id) {
 
         return productRepository.findById(id)
                 .orElseThrow();
+
+    }
+
+    @Override
+    public List<Product> listViewProducts() {
+
+        return productRepository.listViewProducts();
+
+    }
+
+    @Override
+    public List<Product> getRelatedProducts(Integer categoryId) {
+
+        return productRepository.getRelatedProducts(categoryId);
+
+    }
+
+    @Override
+    public List<Product> getProductsInCategory(Integer categoryId) {
+
+        return productRepository.getProductsInCategory(categoryId);
+
+    }
+
+    @Override
+    public List<Product> filterHighPrice() {
+
+        return productRepository.filterHighPrice();
+
+    }
+
+    @Override
+    public List<Product> filterLowPrice() {
+
+        return productRepository.filterLowPrice();
 
     }
 
