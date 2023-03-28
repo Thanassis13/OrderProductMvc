@@ -1,6 +1,8 @@
 package gr.kariera.mindthecode.MyFirstProject.Services.Impl;
 
+import gr.kariera.mindthecode.MyFirstProject.DTOs.ProductDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
+import gr.kariera.mindthecode.MyFirstProject.Repositories.CategoryRepository;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.ProductRepository;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,8 +27,22 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
 
     }
+
+    /*Admin*/
+
     @Override
-    public Product createOrUpdateProduct(Integer id, Product product) throws Exception {
+    public List<ProductDto> findAll() {
+
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtoList = transfer(products);
+        return productDtoList;
+
+    }
+
+    @Override
+    public Product save(Integer id, ProductDto productDto) throws Exception {
+
+        Product product = new Product();
 
         if (id != null) {
 
@@ -33,15 +54,40 @@ public class ProductServiceImpl implements ProductService {
 
         }
 
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(productDto.getCategory());
+        product.setPrice(productDto.getPrice());
+        product.setCurrentQuantity(productDto.getCurrentQuantity());
+        product.set_activated(true);
+        product.set_deleted(false);
         return productRepository.save(product);
 
     }
 
     @Override
-    public Product getById(Integer id) {
+    public Product update(Integer id, ProductDto productDto) throws Exception {
 
-        return productRepository.findById(id)
-                .orElseThrow();
+        Product product = productRepository.getById(productDto.getId());
+
+        if (id != null) {
+
+            if (!id.equals(product.getId())) {
+
+                throw new Exception("id in path does not patch id in body");
+
+            }
+
+        }
+
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(productDto.getCategory());
+        product.setPrice(productDto.getPrice());
+        product.setCurrentQuantity(productDto.getCurrentQuantity());
+        product.set_activated(true);
+        product.set_deleted(false);
+        return productRepository.save(product);
 
     }
 
@@ -51,6 +97,35 @@ public class ProductServiceImpl implements ProductService {
         Product match = productRepository.findById(id)
                 .orElseThrow();
         productRepository.delete(match);
+
+    }
+
+    @Override
+    public void enableById(Integer id) {
+        Product product = productRepository.getById(id);
+        product.set_activated(true);
+        product.set_deleted(false);
+        productRepository.save(product);
+    }
+
+    @Override
+    public ProductDto getById(Integer id) {
+
+        Product product = productRepository.getById(id);
+
+        ProductDto productDto = new ProductDto();
+
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setCurrentQuantity(product.getCurrentQuantity());
+        productDto.setCategory(product.getCategory());
+        productDto.setPrice(product.getPrice());
+        productDto.setImage(product.getImage());
+        productDto.setDeleted(product.is_deleted());
+        productDto.setActivated(product.is_activated());
+
+        return productDto;
 
     }
 
@@ -69,15 +144,46 @@ public class ProductServiceImpl implements ProductService {
 
             res = productRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
 
             res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 
         }
 
         return res;
+
+    }
+
+    private List<ProductDto> transfer(List<Product> products) {
+        List<ProductDto> productDtoList = new ArrayList<>();
+
+        for (Product product : products) {
+
+            ProductDto productDto = new ProductDto();
+            productDto.setId(product.getId());
+            productDto.setName(product.getName());
+            productDto.setDescription(product.getDescription());
+            productDto.setCurrentQuantity(product.getCurrentQuantity());
+            productDto.setCategory(product.getCategory());
+            productDto.setPrice(product.getPrice());
+            productDto.setImage(product.getImage());
+            productDto.setDeleted(product.is_deleted());
+            productDto.setActivated(product.is_activated());
+            productDtoList.add(productDto);
+
+        }
+
+        return productDtoList;
+
+    }
+
+    /*Customer*/
+
+    @Override
+    public Product getProductById(Integer id) {
+
+        return productRepository.findById(id)
+                .orElseThrow();
 
     }
 

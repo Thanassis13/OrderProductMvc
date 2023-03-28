@@ -3,6 +3,7 @@ package gr.kariera.mindthecode.MyFirstProject.MVC;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,10 @@ import org.springframework.web.client.HttpClientErrorException;
 @RequestMapping("/orders")
 public class OrderController {
 
+    @Autowired
     private final OrderService orderService;
+
+    @Autowired
     private final ProductService productService;
 
 
