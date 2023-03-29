@@ -227,4 +227,9 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public void createOrUpdateProduct(Integer integer, Product product) {
+
+    }
+
 }

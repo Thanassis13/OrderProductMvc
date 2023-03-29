@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "image"}))
+@Table(name = "products")// uniqueConstraints = @UniqueConstraint(columnNames = {"name", "image"}))
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

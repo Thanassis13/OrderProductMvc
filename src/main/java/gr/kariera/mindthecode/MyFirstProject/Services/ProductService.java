@@ -47,4 +47,5 @@ public interface ProductService {
 
     public abstract List<Product> filterLowPrice();
 
+    void createOrUpdateProduct(Integer integer, Product product);
 }
