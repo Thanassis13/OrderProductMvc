@@ -17,7 +17,7 @@ public class Order {
     @Id
     @GeneratedValue
     private Integer id;
-    private Double discountPercentage = 0d;
+   // private Double discountPercentage = 0d;
     private String address;
 
 
@@ -72,15 +72,15 @@ public class Order {
 
     }
 
-    public Double getDiscountPercentage() {
-
-        return discountPercentage;
-
-    }
-
-    public void setDiscountPercentage(Double discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
+//    public Double getDiscountPercentage() {
+//
+//        return discountPercentage;
+//
+//    }
+//
+//    public void setDiscountPercentage(Double discountPercentage) {
+//        this.discountPercentage = discountPercentage;
+//    }
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -135,8 +135,8 @@ public class Order {
                 })
                 .reduce((acc, cur) -> acc.add(cur))
                 .orElseThrow();
-
-        return total.multiply(BigDecimal.valueOf(1-discountPercentage));
+    return total;
+        //return total.multiply(BigDecimal.valueOf(1-discountPercentage));
 
     }
 

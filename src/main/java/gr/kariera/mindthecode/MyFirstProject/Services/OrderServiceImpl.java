@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 
             Order order = new Order();
             order.setAddress(newOrder.getAddress());
-            order.setDiscountPercentage(newOrder.getDiscountPercentage());
+          //  order.setDiscountPercentage(newOrder.getDiscountPercentage());
             order = orderRepository.save(order);
 
             final Order finalOrder = order;
