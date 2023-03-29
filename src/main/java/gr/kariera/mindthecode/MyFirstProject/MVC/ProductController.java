@@ -26,7 +26,7 @@ public class ProductController {
 
                 @RequestParam(required = false) String description,
                 @RequestParam(defaultValue = "0") int page,
-                @RequestParam(defaultValue = "3") int size,
+                @RequestParam(defaultValue = "6") int size,
                 @RequestParam(defaultValue = "ASC", required = false) String sort,
                 Model model
         ) {
