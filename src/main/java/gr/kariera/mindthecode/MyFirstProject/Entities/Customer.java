@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 
-// used lobmok to generate getters setters and constructors
+
+// used lombok to generate getters setters and constructors
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "customers", uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName", "email", "userName", "password"}))
+@Table(name = "customers", uniqueConstraints = @UniqueConstraint(columnNames = {"firstName", "lastName", "email", "username", "password"}))
 public class Customer {
 
     @Id
@@ -28,5 +30,11 @@ public class Customer {
     private String email;
 
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable( name = "customers_roles",
+            joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    private Collection<Role> roles;
 
 }
