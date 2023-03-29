@@ -20,7 +20,7 @@ public class ProductApiController {
         this.productRepository = productRepository;
 
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/products/{id}")
     public Product update(@PathVariable Integer id, @RequestBody Product product) {
 
@@ -32,14 +32,14 @@ public class ProductApiController {
         return productRepository.save(product);
 
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/products")
     public Product newPerson(@RequestBody Product product) {
 
         return productRepository.save(product);
 
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/products/{id}")
     public Product products(@PathVariable Integer id) {
 
@@ -48,6 +48,7 @@ public class ProductApiController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/products")
     public Page<Product> all(
 
@@ -81,7 +82,7 @@ public class ProductApiController {
         return res;
 
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/products/{id}")
     public void delete(@PathVariable Integer id) {
 
