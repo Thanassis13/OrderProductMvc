@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/customer")
 public class CustomerApiController {
 
 
@@ -26,8 +26,8 @@ public class CustomerApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/customer")
-    public Customer register(@PathVariable Integer id, @RequestBody CustomerDto customerDto) {
+    @PostMapping("/create")
+    public Customer register(@RequestBody CustomerDto customerDto) {
 
         Customer customer = new Customer();
 
@@ -45,7 +45,7 @@ public class CustomerApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/customer")
+    @PostMapping("/login")
     public Customer login(@RequestBody LoginDto loginDto) throws Exception {
 
         Customer customer = customerRepository.findByUsername(loginDto.getUsername());

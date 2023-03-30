@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/admin")
 public class AdminApiController {
 
 
@@ -26,8 +26,8 @@ public class AdminApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/admin")
-    public Admin register(@PathVariable Integer id, @RequestBody AdminDto adminDto) {
+    @PostMapping("/create")
+    public Admin register(@RequestBody AdminDto adminDto) {
 
         Admin admin = new Admin();
 
@@ -45,7 +45,7 @@ public class AdminApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/admin")
+    @PostMapping("/login")
     public Admin login(@RequestBody LoginDto loginDto) throws Exception {
 
         Admin admin = adminRepository.findByUsername(loginDto.getUsername());

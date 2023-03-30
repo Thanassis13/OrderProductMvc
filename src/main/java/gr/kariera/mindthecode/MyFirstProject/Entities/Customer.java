@@ -31,6 +31,10 @@ public class Customer {
 
     private String password;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable( name = "customers_roles",
             joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"),

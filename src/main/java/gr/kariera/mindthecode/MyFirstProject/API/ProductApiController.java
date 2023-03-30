@@ -37,7 +37,7 @@ public class ProductApiController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/products")
-    public Product newPerson(@RequestBody Product product) {
+    public Product newProduct(@RequestBody Product product) {
 
         return productRepository.save(product);
 
