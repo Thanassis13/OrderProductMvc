@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -77,17 +79,20 @@ public class ProductController {
     }
 
     @PostMapping("/create-or-update")
-    public String saveCreateForm(@RequestParam Optional<Integer> id, @ModelAttribute Product product) {
-
-        try {
-
-            productService.createOrUpdateProduct(id.isPresent() ? id.get() : null, product);
-
-        } catch (Exception e) {
-
-            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
-
+    public String saveCreateForm(@Valid @RequestParam Optional<Integer> id, @ModelAttribute Product product, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "create-or-update-product";
         }
+
+//        try {
+//
+//            productService.createOrUpdateProduct(id.isPresent() ? id.get() : null, product);
+//
+//        } catch (Exception e) {
+//
+//            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
+//
+//        }
 
         return "redirect:/products/index";
 
