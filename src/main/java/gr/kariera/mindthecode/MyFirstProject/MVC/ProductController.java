@@ -78,6 +78,7 @@ public class ProductController {
 
     }
 
+    //@Valid, after http request and before creating a customer it will check if it is valid
     @PostMapping("/create-or-update")
     public String saveCreateForm(@Valid @RequestParam Optional<Integer> id, @ModelAttribute Product product, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
