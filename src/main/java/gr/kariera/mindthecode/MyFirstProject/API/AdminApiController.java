@@ -13,7 +13,6 @@ import java.util.Arrays;
 @RequestMapping(path = "/api/admin")
 public class AdminApiController {
 
-
     private final AdminRepository adminRepository;
 
     private final RoleRepository roleRepository;

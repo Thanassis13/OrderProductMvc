@@ -75,9 +75,7 @@ public class ProductApiController {
 
             res = productRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
 
             res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 

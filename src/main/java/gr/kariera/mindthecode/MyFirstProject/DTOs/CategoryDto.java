@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
+@AllArgsConstructor
+@Data
+public class CategoryDto {
 
-    private String username;
-
-    private String password;
+    private Integer categoryId;
+    private String categoryName;
+    private Long numberOfProduct;
 
 }

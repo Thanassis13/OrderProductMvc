@@ -63,6 +63,8 @@
         <label for="firstName" class="form-label">First name</label>
         <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
                placeholder="Enter your first name" required="required">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+      </div>
         <div class="invalid-feedback">
           Insert first name
         </div>
@@ -71,6 +73,8 @@
         <label for="lastName" class="form-label">Last name</label>
         <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
                placeholder="Enter your last name" required="required">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+      </div>
         <div class="invalid-feedback">
           Insert last name
         </div>
@@ -78,7 +82,8 @@
       <div class="col-12 col-md-12">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="Enter your email"
-               required="required">
+               required="required"><div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+      </div>
         <div class="invalid-feedback">
           Insert email
         </div>
@@ -87,6 +92,9 @@
         <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username" th:field="*{username}"
                placeholder="Enter your username" required="required">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+      </div>
+        username
         <div class="invalid-feedback">
           Insert username
         </div>
@@ -95,6 +103,8 @@
         <label for="password" class="form-label">Password</label>
         <input type="text" class="form-control" id="password" th:field="*{password}"
                placeholder="Enter your password" required="required">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+      </div>
         <div class="invalid-feedback">
           Insert password
         </div>

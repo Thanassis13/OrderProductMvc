@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy;
 @Entity
 @Table(name = "Order_Product")
 public class OrderProduct {
+
     @EmbeddedId
     private OrderProductPK id;
 

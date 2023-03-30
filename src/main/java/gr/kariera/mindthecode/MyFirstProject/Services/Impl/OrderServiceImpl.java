@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
         this.productRepository = productRepository;
 
     }
+
     @Override
     public Order getOrderById(Integer id) {
 
@@ -34,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow();
 
     }
+
     @Override
     public Page<Order> getOrders(String address, int page, int size, String sort) {
 
@@ -49,9 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
             res = orderRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
 
             res = orderRepository.findByAddressContainingIgnoreCase(address, paging);
 

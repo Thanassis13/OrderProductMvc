@@ -79,6 +79,7 @@ public class OrderApiController {
                 .orElseThrow();
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/orders/{id}")
     public Order orders(@PathVariable Integer id) {
@@ -111,9 +112,7 @@ public class OrderApiController {
 
             res = orderRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
             res = orderRepository.findByAddressContainingIgnoreCase(address, paging);
 
         }
@@ -121,6 +120,7 @@ public class OrderApiController {
         return res;
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/orders/{id}")
     public void delete(@PathVariable Integer id) {
