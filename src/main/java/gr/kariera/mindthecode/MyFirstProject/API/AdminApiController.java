@@ -1,10 +1,8 @@
 package gr.kariera.mindthecode.MyFirstProject.API;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.AdminDto;
-import gr.kariera.mindthecode.MyFirstProject.DTOs.CustomerDto;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.LoginDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Admin;
-import gr.kariera.mindthecode.MyFirstProject.Entities.Customer;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.AdminRepository;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.RoleRepository;
 import org.springframework.web.bind.annotation.*;
