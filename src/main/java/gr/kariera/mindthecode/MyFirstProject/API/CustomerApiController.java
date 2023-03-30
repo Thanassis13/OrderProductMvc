@@ -4,7 +4,10 @@ import gr.kariera.mindthecode.MyFirstProject.DTOs.CustomerDto;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.LoginDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Customer;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.CustomerRepository;
+import gr.kariera.mindthecode.MyFirstProject.Repositories.RoleRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -13,14 +16,17 @@ public class CustomerApiController {
 
     private final CustomerRepository customerRepository;
 
-    public CustomerApiController(CustomerRepository customerRepository) {
+    private final RoleRepository roleRepository;
+
+    public CustomerApiController(CustomerRepository customerRepository, RoleRepository rolerepository) {
 
         this.customerRepository = customerRepository;
+        this.roleRepository = rolerepository;
 
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/customers")
+    @GetMapping("/customer")
     public Customer register(@PathVariable Integer id, @RequestBody CustomerDto customerDto) {
 
         Customer customer = new Customer();
@@ -30,6 +36,7 @@ public class CustomerApiController {
         customer.setEmail(customerDto.getEmail());
         customer.setUsername(customerDto.getUsername());
         customer.setPassword(customerDto.getPassword());
+        customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
 
         Customer customerSave = customerRepository.save(customer);
 
