@@ -42,8 +42,6 @@
     <div class="row">
 
         <form class="needs-validation" novalidate="" method="post" th:attr="action=@{/products/create-or-update(id=${product.id})}" th:object="${product}">
-
-            <div class="row g-3 mt-5" >
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label">Περιγραφή</label>
                     <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Ονομασία προϊόντος" required="required">
