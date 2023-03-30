@@ -14,7 +14,6 @@ import java.util.Arrays;
 public class AdminApiController {
 
     private final AdminRepository adminRepository;
-
     private final RoleRepository roleRepository;
 
     public AdminApiController(AdminRepository adminRepository, RoleRepository rolerepository) {
@@ -26,9 +25,22 @@ public class AdminApiController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create")
-    public Admin register(@RequestBody AdminDto adminDto) {
+    public Admin register(@RequestBody AdminDto adminDto) throws Exception {
 
-        Admin admin = new Admin();
+        Admin admin;
+
+        // Check if customer with the same username already exists
+        admin = adminRepository.findByUsername(adminDto.getUsername());
+
+        if (admin != null ){
+
+            throw new Exception("This username is already in use");
+
+        } else {
+
+            admin = new Admin();
+
+        }
 
         admin.setFirstName(adminDto.getFirstName());
         admin.setLastName(adminDto.getLastName());

@@ -13,9 +13,7 @@ import java.util.Arrays;
 @RequestMapping(path = "/api/customer")
 public class CustomerApiController {
 
-
     private final CustomerRepository customerRepository;
-
     private final RoleRepository roleRepository;
 
     public CustomerApiController(CustomerRepository customerRepository, RoleRepository rolerepository) {
@@ -27,9 +25,22 @@ public class CustomerApiController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create")
-    public Customer register(@RequestBody CustomerDto customerDto) {
+    public Customer register(@RequestBody CustomerDto customerDto) throws Exception {
 
-        Customer customer = new Customer();
+        Customer customer;
+
+        // Check if customer with the same username already exists
+        customer = customerRepository.findByUsername(customerDto.getUsername());
+
+        if (customer != null ){
+
+            throw new Exception("This username is already in use");
+
+        } else {
+
+            customer = new Customer();
+
+        }
 
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
