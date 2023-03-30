@@ -17,6 +17,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
 @RequestMapping(path = "/api")
+@CrossOrigin
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
@@ -122,9 +123,8 @@ public class OrderApiController {
     }
     @CrossOrigin(origins = "http://localhost:3000")
 
-    @DeleteMapping("/orders/{id}")
+    @RequestMapping(value = "/persons/{id}", method = { RequestMethod.OPTIONS, RequestMethod.DELETE})
     public void delete(@PathVariable Integer id) {
-
         Order match = orderRepository.findById(id)
                 .orElseThrow();
         orderRepository.delete(match);
