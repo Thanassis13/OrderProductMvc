@@ -3,7 +3,6 @@ package gr.kariera.mindthecode.MyFirstProject.MVC;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.NewOrderDto;
 import gr.kariera.mindthecode.MyFirstProject.Services.OrderService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
     private final OrderService orderService;
-
-    @Autowired
     private final ProductService productService;
 
 
@@ -35,7 +31,7 @@ public class OrderController {
 
             @RequestParam(required = false) String description,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "ASC", required = false) String sort, Model model
 
     ) {
@@ -53,7 +49,7 @@ public class OrderController {
     public String showCreateForm(@RequestParam(required = false) String address,
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "3") int size,
-                                 @RequestParam(defaultValue = "ASC", required = false) String sort,Model model) {
+                                 @RequestParam(defaultValue = "ASC", required = false) String sort, Model model) {
 
         model.addAttribute("orders", orderService.getOrders(address, page, size, sort));
         model.addAttribute("sort", sort);
@@ -66,7 +62,7 @@ public class OrderController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("order",  orderService.getOrderById(id));
+        model.addAttribute("order", orderService.getOrderById(id));
 
         return "create-or-update-order";
 
@@ -79,9 +75,7 @@ public class OrderController {
 
             orderService.createOrder(id, newOrderDto);
 
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
             throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
 
@@ -100,4 +94,4 @@ public class OrderController {
 
     }
 
-    }
+}

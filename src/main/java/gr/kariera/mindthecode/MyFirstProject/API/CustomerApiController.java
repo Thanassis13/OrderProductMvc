@@ -1,27 +1,34 @@
-package gr.kariera.mindthecode.MyFirstProject.Services.Impl;
+package gr.kariera.mindthecode.MyFirstProject.API;
 
 import gr.kariera.mindthecode.MyFirstProject.DTOs.CustomerDto;
 import gr.kariera.mindthecode.MyFirstProject.DTOs.LoginDto;
 import gr.kariera.mindthecode.MyFirstProject.Entities.Customer;
+import gr.kariera.mindthecode.MyFirstProject.Entities.ShoppingCart;
 import gr.kariera.mindthecode.MyFirstProject.Repositories.CustomerRepository;
-import gr.kariera.mindthecode.MyFirstProject.Services.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import gr.kariera.mindthecode.MyFirstProject.Repositories.RoleRepository;
+import gr.kariera.mindthecode.MyFirstProject.Repositories.ShoppingCartRepository;
+import org.springframework.web.bind.annotation.*;
 
-@Service
-public class CustomerServiceImpl implements CustomerService {
+import java.util.Arrays;
 
-    @Autowired
+@RestController
+@RequestMapping(path = "/api/customer")
+public class CustomerApiController {
+
+
     private final CustomerRepository customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepo) {
+    private final RoleRepository roleRepository;
 
-        this.customerRepository = customerRepo;
+    public CustomerApiController(CustomerRepository customerRepository, RoleRepository rolerepository, ShoppingCartRepository shoppingCartRepository) {
 
+        this.customerRepository = customerRepository;
+        this.roleRepository = rolerepository;
     }
 
-    @Override
-    public Customer register(Integer id, CustomerDto customerDto) throws Exception {
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/create")
+    public Customer register(@RequestBody CustomerDto customerDto) {
 
         Customer customer = new Customer();
 
@@ -30,19 +37,17 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setEmail(customerDto.getEmail());
         customer.setUsername(customerDto.getUsername());
         customer.setPassword(customerDto.getPassword());
+        customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
 
         Customer customerSave = customerRepository.save(customer);
 
         return customerRepository.findById(customerSave.getId()).orElseThrow();
+
     }
 
-    @Override
-    public Customer update(Integer id, CustomerDto customerDto) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Customer login(LoginDto loginDto) throws Exception {
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/login")
+    public Customer login(@RequestBody LoginDto loginDto) throws Exception {
 
         Customer customer = customerRepository.findByUsername(loginDto.getUsername());
 

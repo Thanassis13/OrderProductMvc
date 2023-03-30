@@ -1,36 +1,26 @@
 package gr.kariera.mindthecode.MyFirstProject.MVC;
 
 import gr.kariera.mindthecode.MyFirstProject.Entities.Product;
-import gr.kariera.mindthecode.MyFirstProject.Services.CategoryService;
 import gr.kariera.mindthecode.MyFirstProject.Services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private final ProductService productService;
+    private final ProductService service;
 
-    @Autowired
-    private final CategoryService categoryService;
+    public ProductController(ProductService service) {
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
-
-        this.productService = productService;
-        this.categoryService = categoryService;
+        this.service = service;
 
     }
-
-    /*Admin*/
 
     @GetMapping("/index")
     public String all(
@@ -43,7 +33,7 @@ public class ProductController {
     ) {
 
 
-        model.addAttribute("products", productService.getProducts(description, page, size, sort));
+        model.addAttribute("products", service.getProducts(description, page, size, sort));
         model.addAttribute("sort", sort);
         model.addAttribute("description", description);
 
@@ -54,16 +44,15 @@ public class ProductController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
 
-        model.addAttribute("product", new Product());
+        model.addAttribute("product",  new Product());
 
         return "create-or-update-product";
 
     }
-
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product",  service.getById(id));
 
         return "create-or-update-product";
 
@@ -72,37 +61,29 @@ public class ProductController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model) {
 
-        productService.deleteProduct(id);
+        service.deleteProduct(id);
 
         return "redirect:/products/index";
 
     }
 
-    //@Valid, after http request and before creating a customer it will check if it is valid
     @PostMapping("/create-or-update")
-    public String saveCreateForm(@Valid @RequestParam Optional<Integer> id, @ModelAttribute Product product, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "create-or-update-product";
+    public String saveCreateForm(@RequestParam Optional<Integer> id, @ModelAttribute Product product) {
+
+        try {
+
+            service.createOrUpdateProduct(id.isPresent() ? id.get() : null, product);
+
         }
 
-//        try {
-//
-//            productService.createOrUpdateProduct(id.isPresent() ? id.get() : null, product);
-//
-//        } catch (Exception e) {
-//
-//            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
-//
-//        }
+        catch (Exception e) {
+
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), e.getMessage());
+
+        }
 
         return "redirect:/products/index";
 
     }
-
-    /*Customer*/
-
-
-
-
 
 }

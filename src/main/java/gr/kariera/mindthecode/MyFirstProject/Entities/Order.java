@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Entity(name = "orders")
+@Entity
+@Table(name = "orders", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "address"}))
 public class Order {
     @Id
     @GeneratedValue
     private Integer id;
-   // private Double discountPercentage = 0d;
     private String address;
 
     @Transient
@@ -27,6 +27,18 @@ public class Order {
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private Collection<OrderProduct> orderProducts = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 
     public Order() {
 
@@ -78,16 +90,6 @@ public class Order {
 
     }
 
-//    public Double getDiscountPercentage() {
-//
-//        return discountPercentage;
-//
-//    }
-//
-//    public void setDiscountPercentage(Double discountPercentage) {
-//        this.discountPercentage = discountPercentage;
-//    }
-
     public Collection<OrderProduct> getOrderProducts() {
 
         return orderProducts;
@@ -103,7 +105,7 @@ public class Order {
     @Transient
     private Collection<ProductWithQuantityDto> products;
 
-    public Collection<ProductWithQuantityDto>  getProducts() {
+    public Collection<ProductWithQuantityDto> getProducts() {
 
         return orderProducts
                 .stream()
@@ -133,11 +135,11 @@ public class Order {
                 })
                 .reduce((acc, cur) -> acc.add(cur))
                 .orElseThrow();
-    return total;
-        //return total.multiply(BigDecimal.valueOf(1-discountPercentage));
+
+        return total;
 
     }
-    
+
     @Transient
     public int getNumberOfProducts() {
 
@@ -145,4 +147,4 @@ public class Order {
 
     }
 
-    }
+}

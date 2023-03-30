@@ -17,9 +17,9 @@ import java.math.BigDecimal;
 public class ProductDto {
 
     private Integer id;
-    @Size(min=2, max=50, message = "must be between 2 and 50 characters")
+    @Size(min = 2, max = 50, message = "must be between 2 and 50 characters")
     private String name;
-    @Size(min=2, max=100, message = "must be between 2 and 100 characters")
+    @Size(min = 2, max = 100, message = "must be between 2 and 100 characters")
     private String description;
     @NotNull
     //The value of the field must be a decimal value, greater than or equal to the number in the value element.

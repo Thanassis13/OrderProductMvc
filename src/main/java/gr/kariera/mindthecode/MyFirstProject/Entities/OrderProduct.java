@@ -6,11 +6,24 @@ import org.springframework.context.annotation.Lazy;
 @Entity
 @Table(name = "Order_Product")
 public class OrderProduct {
+
     @EmbeddedId
     private OrderProductPK id;
 
     @Column(nullable = false)
     private Integer quantity;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
+    private ShoppingCart cart;
+
+    public ShoppingCart getCart() {
+        return cart;
+    }
+
+    public void setCart(ShoppingCart cart) {
+        this.cart = cart;
+    }
 
     @ManyToOne
     @Lazy(false)
@@ -22,7 +35,8 @@ public class OrderProduct {
     @MapsId("product_id")
     private Product product;
 
-    public OrderProduct() {}
+    public OrderProduct() {
+    }
 
     public Integer getQuantity() {
 

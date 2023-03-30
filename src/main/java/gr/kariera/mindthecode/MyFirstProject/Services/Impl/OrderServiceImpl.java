@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
         this.productRepository = productRepository;
 
     }
+
     @Override
     public Order getOrderById(Integer id) {
 
@@ -34,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow();
 
     }
+
     @Override
     public Page<Order> getOrders(String address, int page, int size, String sort) {
 
@@ -49,9 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
             res = orderRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
 
             res = orderRepository.findByAddressContainingIgnoreCase(address, paging);
 
@@ -63,51 +63,50 @@ public class OrderServiceImpl implements OrderService {
 
     public Order createOrder(Integer id, NewOrderDto newOrder) {
 
-            Order order = new Order();
-            order.setAddress(newOrder.getAddress());
-          //  order.setDiscountPercentage(newOrder.getDiscountPercentage());
-            order = orderRepository.save(order);
+        Order order = new Order();
+        order.setAddress(newOrder.getAddress());
+        order = orderRepository.save(order);
 
-            final Order finalOrder = order;
-            newOrder.getProducts()
-                    .stream()
-                    .forEach(nop -> {
+        final Order finalOrder = order;
+        newOrder.getProducts()
+                .stream()
+                .forEach(nop -> {
 
-                        Product p = productRepository
-                                .findById(nop.getProductId())
-                                .orElseThrow();
-                        OrderProduct op = new OrderProduct();
-                        OrderProductPK opPK = new OrderProductPK();
-                        opPK.setOrderId(finalOrder.getId());
-                        opPK.setProductId(p.getId());
-                        op.setId(opPK);
-                        op.setOrder(finalOrder);
-                        op.setProduct(p);
-                        op.setQuantity(nop.getQuantity());
-                        finalOrder.getOrderProducts().add(op);
-                        finalOrder.setOrderProducts(finalOrder.getOrderProducts());
+                    Product p = productRepository
+                            .findById(nop.getProductId())
+                            .orElseThrow();
+                    OrderProduct op = new OrderProduct();
+                    OrderProductPK opPK = new OrderProductPK();
+                    opPK.setOrderId(finalOrder.getId());
+                    opPK.setProductId(p.getId());
+                    op.setId(opPK);
+                    op.setOrder(finalOrder);
+                    op.setProduct(p);
+                    op.setQuantity(nop.getQuantity());
+                    finalOrder.getOrderProducts().add(op);
+                    finalOrder.setOrderProducts(finalOrder.getOrderProducts());
 
-                    });
+                });
 
-            Order result = orderRepository.save(finalOrder);
-            return orderRepository.findById(result.getId())
-                    .orElseThrow();
+        Order result = orderRepository.save(finalOrder);
+        return orderRepository.findById(result.getId())
+                .orElseThrow();
 
-        }
+    }
 
-        public Order updateOrder(Integer id, Order order) throws Exception {
+    public Order updateOrder(Integer id, Order order) throws Exception {
 
-            if (id != null) {
+        if (id != null) {
 
-                if (!id.equals(order.getId())) {
+            if (!id.equals(order.getId())) {
 
-                    throw new Exception("id in path does not patch id in body");
-
-                }
+                throw new Exception("id in path does not patch id in body");
 
             }
 
-            return orderRepository.save(order);
+        }
+
+        return orderRepository.save(order);
 
     }
 

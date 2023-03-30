@@ -6,10 +6,10 @@ import gr.kariera.mindthecode.MyFirstProject.Entities.ShoppingCart;
 
 public interface ShoppingCartService {
 
-        public abstract ShoppingCart addItemToCart(Product product, int quantity, Customer customer);
+    public abstract ShoppingCart addItemToCart(Product product, int quantity, Customer customer);
 
-        public abstract ShoppingCart updateItemInCart(Product product, int quantity, Customer customer);
+    public abstract ShoppingCart updateItemInCart(Product product, int quantity, Customer customer);
 
-        public abstract ShoppingCart deleteItemFromCart(Product product, Customer customer);
+    public abstract ShoppingCart deleteItemFromCart(Product product, Customer customer);
 
 }

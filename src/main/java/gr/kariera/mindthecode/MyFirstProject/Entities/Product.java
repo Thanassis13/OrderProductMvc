@@ -1,11 +1,16 @@
 package gr.kariera.mindthecode.MyFirstProject.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 //getter and setter methods,
 //generate constructors with no arguments and with all arguments, respectively.
@@ -15,7 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products")// uniqueConstraints = @UniqueConstraint(columnNames = {"name", "image"}))
+@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "price"}))
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +47,10 @@ public class Product {
     //    is_deleted: This field might be used to indicate whether a product has been deleted from the system or not.
     //    When a product is deleted, its corresponding is_deleted field is set to true.
     //    This can be useful for soft-deleting records, where they are not actually removed from the database but are hidden from view in the application.
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private Collection<OrderProduct> orderProducts = new ArrayList<>();
 
 }
