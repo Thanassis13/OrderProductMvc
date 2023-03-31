@@ -20,11 +20,13 @@ public class ProductApiController {
         this.productRepository = productRepository;
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/products/{id}")
     public Product update(@PathVariable Integer id, @RequestBody Product product) {
 
         if (!id.equals(product.getId())) {
+
             throw new HttpClientErrorException(HttpStatusCode.valueOf(400), "id in path does not patch id in body");
 
         }
@@ -32,13 +34,15 @@ public class ProductApiController {
         return productRepository.save(product);
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/products")
-    public Product newPerson(@RequestBody Product product) {
+    public Product newProduct(@RequestBody Product product) {
 
         return productRepository.save(product);
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/products/{id}")
     public Product products(@PathVariable Integer id) {
@@ -71,9 +75,7 @@ public class ProductApiController {
 
             res = productRepository.findAll(paging);
 
-        }
-
-        else {
+        } else {
 
             res = productRepository.findByDescriptionContainingIgnoreCase(description, paging);
 
@@ -82,6 +84,7 @@ public class ProductApiController {
         return res;
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/products/{id}")
     public void delete(@PathVariable Integer id) {

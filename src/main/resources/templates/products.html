@@ -36,7 +36,8 @@
                 <a class="nav-item nav-link" th:href="@{/orders/index}">Παραγγελίες</a>
                 <form  method="get" th:attr="action=@{/products/create}"><button type="submit" class=" btn btn-primary" th:href="@{/products/create}">Νέο προϊόν</button></form>
                 <form  method="get" th:attr="action=@{/orders/create}"><button type="submit" class=" btn btn-primary" th:href="@{/orders/create}">Νέα Παραγγελία</button></form>
-
+                <form  method="get" th:attr="action=@{/customer/create}"><button type="submit" class=" btn btn-primary" th:href="@{/customer/create}">Create new user</button></form>
+                <form method="get" th:attr="action=@{/customer/createlogin}"><button type="submit" class=" btn btn-primary" th:href="@{/customer/createlogin}">Login</button></form>
             </div>
         </div>
     </nav>
