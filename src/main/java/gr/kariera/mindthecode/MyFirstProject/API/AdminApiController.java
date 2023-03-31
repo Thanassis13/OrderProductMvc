@@ -29,10 +29,10 @@ public class AdminApiController {
 
         Admin admin;
 
-        // Check if customer with the same username already exists
+        // Check if admin with the same username already exists
         admin = adminRepository.findByUsername(adminDto.getUsername());
 
-        if (admin != null ){
+        if (admin != null) {
 
             throw new Exception("This username is already in use");
 

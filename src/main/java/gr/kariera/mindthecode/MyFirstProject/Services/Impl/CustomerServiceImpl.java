@@ -20,6 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+
     @Override
     public Customer register(Integer id, CustomerDto customerDto) throws Exception {
 
@@ -56,7 +57,9 @@ public class CustomerServiceImpl implements CustomerService {
 
             return customer;
 
-        } else {
+        }
+
+        else {
 
             throw new Exception("Wrong password");
 

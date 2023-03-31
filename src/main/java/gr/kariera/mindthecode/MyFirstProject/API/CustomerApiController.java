@@ -32,7 +32,7 @@ public class CustomerApiController {
         // Check if customer with the same username already exists
         customer = customerRepository.findByUsername(customerDto.getUsername());
 
-        if (customer != null ){
+        if (customer != null) {
 
             throw new Exception("This username is already in use");
 
