@@ -63,7 +63,7 @@ public class AdminApiController {
 
         if (admin == null) {
 
-            throw new Exception("Unable to find customer with username" + loginDto.getUsername());
+            throw new Exception("Unable to find admin with username" + "" + loginDto.getUsername());
 
         }
 

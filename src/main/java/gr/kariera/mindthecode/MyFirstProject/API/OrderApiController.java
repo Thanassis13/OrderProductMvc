@@ -122,7 +122,7 @@ public class OrderApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @DeleteMapping("/orders/{id}")
+    @RequestMapping(value = "/orders/{id}", method = { RequestMethod.OPTIONS, RequestMethod.DELETE})
     public void delete(@PathVariable Integer id) {
 
         Order match = orderRepository.findById(id)

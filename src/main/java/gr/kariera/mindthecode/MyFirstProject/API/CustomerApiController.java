@@ -63,7 +63,7 @@ public class CustomerApiController {
 
         if (customer == null) {
 
-            throw new Exception("Unable to find customer with username" + loginDto.getUsername());
+            throw new Exception("Unable to find customer with username" + "" + loginDto.getUsername());
 
         }
 
